@@ -102,6 +102,10 @@ width: 20vw;
 
 
 
+.favourites-genres{
+  padding: 3rem;
+}
+
 @media screen and (max-width:400px){
   .banner-card{
     height:30vh;
