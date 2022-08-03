@@ -16,16 +16,64 @@ export default class Movies extends Component {
         }
     }
    
-   async componentDidMount(){  
+async componentDidMount(){  
      const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=c329e49ea66541c60669781b65c43433&language=en-US&page=${this.state.currPage}`);
+
+       let data = res.data;
+       this.setState({
+        movies:[...data.results]
+       })
+        // console.log(data);
+        // console.log("mounting done");
+    }
+
+
+
+changeMovies = async ()=>{
+
+        const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=c329e49ea66541c60669781b65c43433&language=en-US&page=${this.state.currPage}`);
        let data = res.data;
 
        this.setState({
         movies:[...data.results]
-       })
-        console.log(data);
-        console.log("mounting done");
+    
+    })
+    
+}
+
+
+handleRight = () => {
+    let temparr= []
+    for(let i=0 ; i < this.state.parr.length+1 ;i++)
+    {
+        temparr.push(i);
     }
+    this.setState({
+        parr : [...temparr],
+        currPage:this.state.currPage+1
+    },this.changeMovies)
+
+    //setState runs Asynchronisulsy there we gave changemovies as defination not call to run as call back after setState update all the processes .
+}
+
+handleLeft =()=>{
+if(this.state.currPage!=1)
+{
+    this.setState({
+        currPage:this.state.currPage-1
+    } ,this.changeMovies)
+}
+
+}
+
+handleClick =(value)=>{
+    if(value!=this.state.currPage){
+        this.setState({
+            currPage:value},this.changeMovies)
+        }
+} 
+
+//after Settimn value we have to change the array of Movies as well
 
   render() {
     // let movie = movies.results; 
@@ -69,11 +117,12 @@ export default class Movies extends Component {
     <div style={{ display :'flex', justifyContent:'center'}}>
           <nav aria-label="Page navigation example">
              <ul className="pagination">
-             <li className="page-item"><a className="page-link" href="#">Previous</a></li>      
+             <li className="page-item"><a className="page-link" href="#" onClick={this.handleLeft}>Previous</a></li>      
                 { this.state.parr.map((value)=>(
-                    <li className="page-item"><a className="page-link" href="#">{value}</a></li>
+
+                    <li className="page-item"><a className="page-link"  onClick={()=>this.handleClick(value)} >{value}</a></li>
     )) }
-                <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                <li className="page-item"><a className="page-link" onClick={this.handleRight}>Next</a></li>
              </ul>
           </nav>
           </div>
