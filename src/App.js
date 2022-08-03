@@ -1,15 +1,16 @@
 //import logo from './logo.svg';
-import Navbar from './Components/Navbar';
-import Banner from './Components/Banner';
-import Movies from './Components/Movies';
+import React from 'react';
+import Navbar from './Components/Navbar.js';
+import Banner from './Components/Banner.js';
+import Movies from './Components/Movies.js';
 import './App.css';
 
 function App() {
   return (
         <>
             <Navbar/>
-            <Banner />
-            <Movies />
-        </> )}
-
+            <Banner/>
+            <Movies/>
+        </> )
+      }
 export default App;
