@@ -12,7 +12,8 @@ export default class Movies extends Component {
           hover : " " ,
           parr : [1],
           currPage : 1,
-          movies :[ ]
+          movies :[ ],
+          favourites:[], 
         }
     }
    
@@ -73,12 +74,31 @@ handleClick =(value)=>{
         }
 } 
 
-//after Settimn value we have to change the array of Movies as well
 
+handleFavourites=(movie)=>{
+    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]")
+    if(this.state.favourites.includes(movie.id))
+    {
+        oldData = oldData.filter((m)=> m.id!=movie.id)
+    }else{
+        oldData.push(movie);
+    }
+localStorage.setItem("movie-app" , JSON.stringify(oldData));
+console.log(oldData);
+this.handleFavouritesState();
+}
+handleFavouritesState = ()=> {
+    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]");
+    let temp = oldData.map((movie)=>movie.id);
+    this.setState({
+          favourites : [...temp]
+    })
+}
+//after Setting value we have to change the array of Movies as well
   render() {
-    // let movie = movies.results; 
-    console.log("render");
-    return (
+    //let movie = movies.results; 
+    //console.log("render");
+    return(
 <>
 {
     this.state.movies.length==0?
@@ -91,9 +111,9 @@ handleClick =(value)=>{
     <div className='movies-list'>
     {
             this.state.movies.map((movieObj)=> (
-
                 <div className="card  movies-card"  onMouseEnter={()=>this.setState({
                     hover:movieObj.id 
+
                 })}  onMouseLeave={()=>this.setState({hover:" "})} >
 
                 <img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`}   alt={movieObj.title}   className="card-img-top movies-img"/>
@@ -105,14 +125,17 @@ handleClick =(value)=>{
                 <div>
                 <div className="button-wrapper" style={{display:'flex',  justifyContent:'center' ,width:'100%'}}>
                         {
-                            this.state.hover == movieObj.id &&  <a href= "http://localhost:3003/#" className="btn btn-primary movies-btn">Add to Favourites</a>  
-                        }
+                            this.state.hover == movieObj.id && <a className="btn btn-primary movies-btn"  onClick={()=> this.handleFavourites(movieObj)}>Add to Favourites</a>  
+                        }    
                 </div>
                 </div>
             {/*</div>*/}
             </div>
-            ))
+            ) )
+
+            
     }
+    
     </div>
     <div style={{ display :'flex', justifyContent:'center'}}>
           <nav aria-label="Page navigation example">

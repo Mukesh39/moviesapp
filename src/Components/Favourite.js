@@ -57,7 +57,7 @@ console.log(temp);
                 }
                  </ul>
                 </div>
-                <div className="col-9 faovourites-table">
+                <div className="col-9 favourites-table">
                         <div className="row"  style={{marginRight:'1rem' ,width:'66rem'}}>
                             <input type="text " className="input-group-text col" placeholder='search' />
                             <input type="number" className="input-group-text col " placeholder='rows-count'/>
@@ -85,7 +85,7 @@ console.log(temp);
                                 <td>{genreids[movieObj.genre_ids[0]]}</td>
                                 <td>{movieObj.popularity}</td>
                                 <td>{movieObj.vote_average}</td>
-                                <td><button type="button" class="btn btn-danger">Danger</button></td>
+                                <td><button type="button" class="btn btn-danger">Delete</button></td>
                                 </tr>
                              ))
                         }
