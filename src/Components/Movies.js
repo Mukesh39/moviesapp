@@ -74,30 +74,28 @@ handleClick =(value)=>{
 } 
 
 
-
-handleFavourites=(movie)=>{
-
-    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]")
-    if(this.state.favourites.includes(movie.id))
-    {
-        oldData = oldData.filter((m)=> m.id!=movie.id)
-    }else{
-        oldData.push(movie);
-    }
-        localStorage.setItem("movie-app" , JSON.stringify(oldData));
-        console.log(oldData);
+ handleFavourites=(movie)=>{
+        let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]")
+        if(this.state.favourites.includes(movie.id)){
+            oldData = oldData.filter((m)=>m.id!=movie.id)
+        }else{
+            oldData.push(movie)
+        }
+        localStorage.setItem("movies-app",JSON.stringify(oldData));
         console.log(oldData);
         this.handleFavouritesState();
-        }
+    }
 
 
-handleFavouritesState = ()=> {
-    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]");
-    let temp = oldData.map((movie)=>movie.id);
-    this.setState({
-          favourites : [...temp]
-    })
-}
+
+    handleFavouritesState=()=>{
+        let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]")
+        let temp = oldData.map((movie)=>movie.id);
+        this.setState({
+            favourites:[...temp]
+        })
+    }
+
 
 //after Setting value we have to change the array of Movies as well
   render() {
@@ -105,8 +103,7 @@ handleFavouritesState = ()=> {
     //console.log("render");
     return(
 <>
-{
-    
+{  
     this.state.movies.length==0?
     <div className="spinner-border" role="status">
     <span className="visually-hidden">Loading...</span>
@@ -130,15 +127,13 @@ handleFavouritesState = ()=> {
                 <div>
                 <div className="button-wrapper" style={{display:'flex',  justifyContent:'center' ,width:'100%'}}>
                         {
-                            this.state.hover == movieObj.id && <a className="btn btn-primary movies-btn"  onClick={()=> this.handleFavourites(movieObj)}>{this.state.favourites.includes(movieObj.id)? "Remove" : "Add"}</a> 
+                            this.state.hover == movieObj.id && <a className="btn btn-primary movies-btn"  onClick={()=> this.handleFavourites(movieObj)}>{this.state.favourites.includes(movieObj.id)? "Remove From Favourites ":"Add to Favourites"}</a> 
                         }       
                 </div>
                 </div>
             {/*</div>*/}
             </div>
             ) )
-
-            
     }
     
     </div>
