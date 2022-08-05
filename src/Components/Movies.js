@@ -135,7 +135,6 @@ handleClick =(value)=>{
             </div>
             ) )
     }
-    
     </div>
     <div style={{ display :'flex', justifyContent:'center'}}>
           <nav aria-label="Page navigation example">
