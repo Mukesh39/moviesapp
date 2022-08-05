@@ -44,16 +44,16 @@ console.log(temp);
     { /*side Bar*/}
                 {
 
-                  temp.map((genre)=>(
+                  temp.map((genre,index)=>(
                     this.state.currgen==genre ? 
 
-                    <li className="list-group-item"  style={{ background:'blue', color:'white', fontWeight:'bold' }}>{genre} </li> 
+                    <li className="list-group-item"  style={{ background:'blue', color:'white', fontWeight:'bold' }} >  {genre} </li> 
                     
                     :
 
-                    <li className="list-group-item"  style={{ background:'white', color:'blue', fontWeight:'bold' }}>{genre} </li>
+                    <li className="list-group-item"  style={{ background:'white', color:'blue', fontWeight:'bold'  }}>   {genre} </li>
 
-                  ))
+                  ) ,)
                 }
                  </ul>
                 </div>
@@ -85,7 +85,7 @@ console.log(temp);
                                 <td>{genreids[movieObj.genre_ids[0]]}</td>
                                 <td>{movieObj.popularity}</td>
                                 <td>{movieObj.vote_average}</td>
-                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                                <td><button type="button" className="btn btn-danger">Delete</button></td>
                                 </tr>
                              ))
                         }
