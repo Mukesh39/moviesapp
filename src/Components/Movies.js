@@ -96,7 +96,7 @@ handleClick =(value)=>{
         })
     }
 
-
+    
 //after Setting value we have to change the array of Movies as well
   render() {
     //let movie = movies.results; 

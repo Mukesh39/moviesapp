@@ -20,14 +20,15 @@ export default class Favourite extends Component {
 
      let data = JSON.parse(localStorage.getItem("movies-app") || "[]") 
      let temp = [] ; 
-     data.forEach((movieObj)=>{
+     data.forEach((movieObj)=>
+     
+     {
         if(!temp.includes(genreids[movieObj.genre_ids[0]]))
         {
         temp.push(genreids[movieObj.genre_ids[0]]) 
         }
     } )
      temp.unshift("All Genre");
-
      this.setState({
         genres:[...temp],
         movies:[...data]
