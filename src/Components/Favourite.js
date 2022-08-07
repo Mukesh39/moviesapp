@@ -5,35 +5,128 @@ export default class Favourite extends Component {
     constructor(){
         super();
         this.state = {
-            genre  : [],
-            currgen : "All Genre"
+            genres:[],
+            currgen : "All Genre",
+            movies:[],
+            currText:' ',
+            limit : 5,
         }
     }
+
+    componentDidMount(){
+
+        let genreids = {28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',
+        27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
+
+     let data = JSON.parse(localStorage.getItem("movies-app") || "[]") 
+     let temp = [] ; 
+     data.forEach((movieObj)=>{
+        if(!temp.includes(genreids[movieObj.genre_ids[0]]))
+        {
+        temp.push(genreids[movieObj.genre_ids[0]]) 
+        }
+    } )
+     temp.unshift("All Genre");
+
+     this.setState({
+        genres:[...temp],
+        movies:[...data]
+     })
+    }
+handleGenreChange=(genre)=>
+    {
+     this.setState({
+        currgen:genre 
+     })
+    }
+
+//sorting popularity wise Here only no state Change 
+//with Descending order 
+//See mdn with Sorting techniques in MDN documnets you can type in google 
+sortPopularityDesc=()=>{
+    let temp = this.state.movies ;
+    temp.sort(function(objA,objB) {
+        return objB.popularity-objA.popularity ;
+    })
+
+    this.setState({
+        movies :[...temp]
+    })
+}
+
+
+//
+
+sortPopularityAsc=()=>{
+    let temp = this.state.movies ;
+    temp.sort(function(objA,objB) {
+        return objA.popularity-objB.popularity ;
+    })
+
+    this.setState({
+        movies :[...temp]
+    })
+}
+
+
+//
+
+sortRatingDesc=()=>{
+    let temp = this.state.movies ;
+    temp.sort(function(objA,objB) {
+        return objB.vote_average-objA.vote_average ;
+    })
+
+    this.setState({
+        movies :[...temp]
+    })
+}
+
+
+//
+
+sortRatingAsc=()=>{
+    let temp = this.state.movies ;
+    temp.sort(function(objA,objB) {
+        return objA.vote_average-objB.vote_average ;
+    })
+
+    this.setState({
+        movies :[...temp]
+    })
+}
+
   render()
    {
 
-
-    const movie = movies.results;
-    console.log(movie); 
     let genreids = {28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',
-    27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
+        27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
 
-    let temp = [] ;
-        movie.forEach((movieObj)=>{
-            if(!temp.includes(genreids[movieObj.genre_ids[0]])){
-            temp.push(genreids[movieObj.genre_ids[0]])
-    }
-} )
-temp.unshift("All Genre");
-console.log(temp);
+        //filter the Cliked One 
+
+ let filterarr = [];
 
 
-// //Take care This 
-// this.setState({
-//     genres : [...temp]
-// })
+ if(this.state.currText===" ")
+ {
+    filterarr = this.state.movies
+ } 
+ else{
+    filterarr =this.state.movies.filter((movieObj)=>{ 
+   let title = movieObj.original_title.toLowerCase();
+        return title.includes(this.state.currText.toLowerCase())
+      })
+ 
+ }
 
-
+// {
+//     filterarr = this.state.movies 
+// }
+if(this.state.currgen!="All Genre")
+{
+    filterarr = this.state.movies.filter((movieObj)=> genreids[movieObj.genre_ids[0]]==this.state.currgen)
+}
+//console.log(genreids[movieObj.genre_ids[0]]);
     return (
       <div>
             <>      
@@ -41,25 +134,22 @@ console.log(temp);
         <div className="row">
                 <div className="col-3">
                 <ul className="list-group  favourites-genres">
-    { /*side Bar*/}
                 {
+                  this.state.genres.map((genre)=>(
+                    this.state.currgen == genre? 
 
-                  temp.map((genre,index)=>(
-                    this.state.currgen==genre ? 
-
-                    <li className="list-group-item"  style={{ background:'blue', color:'white', fontWeight:'bold' }} >  {genre} </li> 
-                    
+                    <li className="list-group-item"  style={{background:"#3f51b5",color:'white',fontWeight:"bold"}} > {genre}</li>   
                     :
-
-                    <li className="list-group-item"  style={{ background:'white', color:'blue', fontWeight:'bold'  }}>   {genre} </li>
-
+                    <li className="list-group-item"  style = {{ background:'white', color:'#3f51b5', fontWeight:'bold'}}  onClick={()=>this.handleGenreChange(genre)}> {genre} </li>
                   ) ,)
                 }
+
                  </ul>
+                 
                 </div>
                 <div className="col-9 favourites-table">
                         <div className="row"  style={{marginRight:'1rem' ,width:'66rem'}}>
-                            <input type="text " className="input-group-text col" placeholder='search' />
+                            <input type="text " className="input-group-text col" placeholder='search'  value ={this.state.currText}  onChange={(e)=>this.setState({currText:e.target.value})}/>
                             <input type="number" className="input-group-text col " placeholder='rows-count'/>
                         </div>
 
@@ -70,15 +160,16 @@ console.log(temp);
                             <tr>
                             <th scope="col">Title</th>
                             <th scope="col">Genre</th>
-                            <th scope="col">Popularity</th>
-                            <th scope="col">Rating</th>
+                          {/*  // no state Change Only sorting Things up and Down  */}
+                            <th scope="col" ><i class="fa-solid fa-sort-up"  onClick={this.sortPopularityDesc}></i> Popularity <i class="fa-solid fa-sort-down"  onClick={this.sortPopularityAsc}></i></th>
+                            <th scope="col"> <i class="fa-solid fa-sort-up"  onClick={this.sortRatingDesc}></i> Rating <i class="fa-solid fa-sort-down"  onClick={this.sortRatingAsc}></i></th>
                             <th scope="col">Erase</th>
                             </tr>
                         </thead>
 
                         <tbody>
                         {
-                             movie.map((movieObj)=>(
+                             filterarr.map((movieObj)=>(
                                 <tr>
                                 <td><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} style={{width:'5rem'}} alt={movieObj.title} /></td>
                                 <td>{movieObj.original_title}</td>

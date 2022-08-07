@@ -125,6 +125,8 @@ handleClick =(value)=>{
                 {/* <p className="card-text movies-text" >{movieObj.overview}</p>*/}
 
                 <div>
+
+                
                 <div className="button-wrapper" style={{display:'flex',  justifyContent:'center' ,width:'100%'}}>
                         {
                             this.state.hover == movieObj.id && <a className="btn btn-primary movies-btn"  onClick={()=> this.handleFavourites(movieObj)}>{this.state.favourites.includes(movieObj.id)? "Remove From Favourites ":"Add to Favourites"}</a> 
