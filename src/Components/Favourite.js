@@ -8,8 +8,9 @@ export default class Favourite extends Component {
             genres:[],
             currgen : "All Genre",
             movies:[],
-            currText:' ',
+            currText:'',
             limit : 5,
+            currPage : 1,
         }
     }
 
@@ -96,6 +97,29 @@ sortRatingAsc=()=>{
     })
 }
 
+
+
+handlePageChange = (page)=>{
+
+this.setState({
+    currPage:page 
+})
+
+}
+
+
+
+handleDelete = (id)=>
+{
+    let newarr = [];
+    newarr = this.state.movies.filter((movieObj) => movieObj.id!=id)
+  this.setState({
+    movies : [...newarr]
+  })
+
+  localStorage.setItem("movies-app" , JSON.stringify(newarr)) ;
+
+}
   render()
    {
 
@@ -127,12 +151,37 @@ if(this.state.currgen!="All Genre")
     filterarr = this.state.movies.filter((movieObj)=> genreids[movieObj.genre_ids[0]]==this.state.currgen)
 }
 //console.log(genreids[movieObj.genre_ids[0]]);
+
+//seeting the limit on page in current page
+
+let pages = Math.ceil(filterarr.length /this.state.limit) ;
+
+//check
+console.log(pages);
+
+let pagesarr = [] ;
+for( let i = 1 ; i<=pages ; i++)
+{
+    pagesarr.push(i) 
+}
+//check
+console.log(pagesarr);
+
+let si = (this.state.currPage - 1) * this.state.limit ;
+let ei = si+this.state.limit;
+
+
+//Arrar = Array.sliceoperation to cut down the size directly 
+filterarr = filterarr.slice(si,ei);
+
+
+
     return (
       <div>
             <>      
       <div className="main">
         <div className="row">
-                <div className="col-3">
+                <div className="col-lg-3 col-sm-12">
                 <ul className="list-group  favourites-genres">
                 {
                   this.state.genres.map((genre)=>(
@@ -147,12 +196,14 @@ if(this.state.currgen!="All Genre")
                  </ul>
                  
                 </div>
-                <div className="col-9 favourites-table">
-                        <div className="row"  style={{marginRight:'1rem' ,width:'66rem'}}>
-                            <input type="text " className="input-group-text col" placeholder='search'  value ={this.state.currText}  onChange={(e)=>this.setState({currText:e.target.value})}/>
-                            <input type="number" className="input-group-text col " placeholder='rows-count'/>
+                <div className="col-lg-9 favourites-table  col-sm-12">
+                        <div className="row">
+                            <input type="text " className="input-group-text col " placeholder='search'  value ={this.state.currText}  onChange={(e)=>this.setState({currText:e.target.value})}/>
+                            <input type="number" className="input-group-text col " value={this.state.limit} onChange={(e)=> this.setState({
+                                limit:e.target.value
+                            })} placeholder='rows-count'/>
+                            
                         </div>
-
                 <div className="row">
                 
                     <table className="table">
@@ -176,7 +227,7 @@ if(this.state.currgen!="All Genre")
                                 <td>{genreids[movieObj.genre_ids[0]]}</td>
                                 <td>{movieObj.popularity}</td>
                                 <td>{movieObj.vote_average}</td>
-                                <td><button type="button" className="btn btn-danger">Delete</button></td>
+                                <td><button type="button" className="btn btn-danger" onClick={()=>this.handleDelete(movieObj.id)}>Delete</button></td>
                                 </tr>
                              ))
                         }
@@ -185,11 +236,13 @@ if(this.state.currgen!="All Genre")
 
                     <nav aria-label="Page navigation example">
                         <ul className="pagination">
-                            <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                            <li className="page-item"><a className="page-link" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                        {
+                            pagesarr.map((page) => (
+                                <li className="page-item"><a className="page-link" onClick={()=>this.handlePageChange(page)}>{page}</a>
+                                </li>
+                        ))
+                        }
+                           
                         </ul>
                     </nav>
                 </div>
