@@ -188,9 +188,9 @@ filterarr = filterarr.slice(si,ei);
                   this.state.genres.map((genre)=>(
                     this.state.currgen == genre? 
 
-                    <li className="list-group-item"  style={{background:"#3f51b5",color:'white',fontWeight:"bold"}} > {genre}</li>   
+                    <li className="list-group-item"  style={{background:"#3f51b5",color:'white',fontWeight:"bold" , cursor:"pointer"}} > {genre}</li>   
                     :
-                    <li className="list-group-item"  style = {{ background:'white', color:'#3f51b5', fontWeight:'bold'}}  onClick={()=>this.handleGenreChange(genre)}> {genre} </li>
+                    <li className="list-group-item"  style = {{ background:'white', color:'#3f51b5',cursor:"pointer", fontWeight:'bold'}}  onClick={()=>this.handleGenreChange(genre)}> {genre} </li>
                   ) ,)
                 }
 

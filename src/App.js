@@ -28,11 +28,6 @@ function App() {
 
           <Route path='/favourites' element={<Favourite/>}/>
           </Routes>
-
-       {/*  {/*  <Banner/>     */}
-         {/*  <Movies/>     */}
-         {/*  <Favourite/>  */}
-        
          </Router>
         );
       }
