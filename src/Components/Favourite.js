@@ -97,19 +97,12 @@ sortRatingAsc=()=>{
         movies :[...temp]
     })
 }
-
-
-
 handlePageChange = (page)=>{
 
 this.setState({
     currPage:page 
 })
-
 }
-
-
-
 handleDelete = (id)=>
 {
     let newarr = [];
@@ -128,10 +121,7 @@ handleDelete = (id)=>
         27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
 
         //filter the Cliked One 
-
  let filterarr = [];
-
-
  if(this.state.currText===" ")
  {
     filterarr = this.state.movies
@@ -141,7 +131,7 @@ handleDelete = (id)=>
    let title = movieObj.original_title.toLowerCase();
         return title.includes(this.state.currText.toLowerCase())
       })
- 
+
  }
 
 // {
@@ -242,8 +232,7 @@ filterarr = filterarr.slice(si,ei);
                                 <li className="page-item"><a className="page-link" onClick={()=>this.handlePageChange(page)}>{page}</a>
                                 </li>
                         ))
-                        }
-                           
+                        }     
                         </ul>
                     </nav>
                 </div>
