@@ -1,8 +1,13 @@
 # moviesapp
 
-Movies App is which is basically made on React js and and Otehr Farmeworks and It works like Normal Movie sBooking Application includes various functionalities
+# moviesapp 
+moviesapp is a web based responsive apllication on react , 
+Description : Aims to fetch trending Movies from Api TMDB
+Resulting in Showing Best Movie to watch as per ratings and Popularities 
+use of TMDB Based Api which gives data for web application 
+use of HTML,CSS,JavaScript, ES6 , React,Bootstrap  etc
 
-Here we have Many Features Like choosing Movies Adding and Deleting movies according to our own choices and We can also Book pur movies for Tickets , we have option for Booking party Halls and wacth the movies There.
+
 
 # Getting Started with Create React App
 
