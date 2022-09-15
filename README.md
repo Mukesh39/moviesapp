@@ -1,10 +1,9 @@
 # moviesapp
 
-# moviesapp 
-moviesapp is a web based responsive apllication on react  , 
-Description : Aims to fetch trending Movies from Api TMDB ,
+moviesapp is a web based responsive apllication on react , 
+Description : Aims to fetch trending Movies from Api TMDB,
 Resulting in Showing Best Movie to watch as per ratings and Popularities ,
-use of TMDB Based Api which gives data for web application  ,
+use of TMDB Based Api which gives data for web application ,
 use of HTML,CSS,JavaScript, ES6 , React,Bootstrap  etc ,
 
 
