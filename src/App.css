@@ -90,9 +90,9 @@ left: 1rem;
 
 }
 
-.movies-button{
+.movies-btn{
 position: absolute;
-bottom: 2rem;
+bottom: 1rem;
 }
 /* style={{height:'40vh',width:'20vw'}} */
 .movies-img{
@@ -130,7 +130,7 @@ width: 20vw;
     width: 40vw;
     margin: 0.1rem;
   }
-  .movies-button{
+  .movies-btn{
     width: 80%;
   }
   .movies-img{

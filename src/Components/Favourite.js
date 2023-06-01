@@ -1,5 +1,6 @@
 import React, { Component } from 'react' ; 
 import { movies } from './getMovies';
+import '../App.css';
 
 export default class Favourite extends Component {
     constructor(){

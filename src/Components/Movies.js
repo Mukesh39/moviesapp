@@ -21,8 +21,9 @@ async componentDidMount(){
        this.setState({
         movies:[...data.results]
        })
-        // console.log(data);
-        // console.log("mounting done");
+        console.log(data);
+        console.log("mounting done");
+
     }
 changeMovies = async ()=>{
 
@@ -99,6 +100,7 @@ handleClick =(value)=>{
     :
     <div>
     <h3  className='text-center'>Trending</h3>
+
     <div className='movies-list'>
     {
             this.state.movies.map((movieObj)=> (
@@ -113,6 +115,9 @@ handleClick =(value)=>{
                 {/* <p className="card-text movies-text" >{movieObj.overview}</p>*/}
 
                 <div>
+
+
+
 
                 
                 <div className="button-wrapper" style={{display:'flex',  justifyContent:'center' ,width:'100%'}}>
