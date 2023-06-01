@@ -201,6 +201,7 @@ filterarr = filterarr.slice(si,ei);
                     <table className="table">
                         <thead>
                             <tr>
+                            <th></th>
                             <th scope="col">Title</th>
                             <th scope="col">Genre</th>
                           {/*  // no state Change Only sorting Things up and Down  */}
